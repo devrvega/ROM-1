@@ -1,0 +1,44 @@
+# The settings: kept a few seconds after a change, when nothing sounds; SAVE at once; back after a restart;
+# another bank starts the parts afresh
+expect dirty 0
+turn K1 -20
+turn ALGO 3
+turn PRESET 4
+expect sel 3
+expect preset 4
+expect dirty 1
+# not while a note sounds (the organ holds)
+key w0 down
+wait 6000
+expect dirty 1
+key w0 up
+until voices 0 4000
+until dirty 0 6000
+expect store_writes >0
+tap SEL
+expect mute 1
+until dirty 0 6000
+reboot
+expect sel 3
+expect preset 4
+expect mute 1
+turn ALGO -3
+expect vol 80
+expect preset 0
+# SAVE: at once
+tap FX
+turn K1 1
+expect dirty 1
+tap SAVE
+expect dirty 0
+reboot
+expect page 2
+# another bank: the parts afresh, the keys' settings kept
+turn K1 -1
+turn ALGO 3
+tap SEL
+tap SAVE
+bank build/test/two/bank_a.bin build/test/two/bank_b.bin
+expect sel 3
+expect mute 0
+expect preset 0

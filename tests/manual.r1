@@ -1,0 +1,55 @@
+# The manual's and the site's screenshots (tools/manual_shots.sh): the starter sounds, five parts playing over
+# MIDI (a piano on part 1, a bass, strings, a pad, the drums), the pages, the drum part, a help card.
+# The starter's presets: 0 piano, 7 finger bass, 9 strings, 17 warm pad, 18 the kit.
+midi C1 21 00
+midi C2 30 00
+midi C3 59 00
+wait 50
+midi 92 3C 50
+midi 92 40 50
+midi 92 43 50
+midi 93 48 46
+midi 93 4C 46
+midi 93 4F 46
+midi 91 24 70
+midi 99 24 70
+midi 99 2A 50
+midi 90 3C 64
+midi 90 43 64
+midi 90 48 64
+wait 140
+shot screen-part.png
+# SOUND: a little darker, a slower attack
+turn SELECT 1
+turn K1 -12
+turn K2 10
+turn K3 8
+midi 99 26 64
+midi 90 40 64
+wait 120
+shot screen-sound.png
+turn SELECT 1
+turn K1 1
+midi 99 24 70
+wait 100
+shot screen-effects.png
+turn SELECT 1
+wait 50
+shot screen-setup.png
+turn SELECT 1
+wait 50
+shot screen-bank.png
+turn SELECT 1
+# the drum part
+turn ALGO 9
+midi 99 24 78
+midi 99 2A 60
+midi 99 26 70
+wait 90
+shot screen-drums.png
+turn ALGO -9
+# a help card: ARP held a second
+press ARP
+wait 1100
+shot screen-help.png
+release ARP

@@ -1,0 +1,128 @@
+# MIDI in: notes, bank select (the font) and program change (its preset), the drum part, the controllers,
+# the sustain pedal, all notes off, General MIDI's and GS's resets, a drum kit's exclusive class.
+# The bank: the test tones (font 0: 6 presets and a kit) and the starter sounds (font 1), made by run_tests.sh
+bank build/test/two/bank_a.bin build/test/two/bank_b.bin
+expect fonts 2
+expect presets 26
+expect b_ok 1
+expect preset 0
+# a note on channel 1
+peakreset
+midi 90 45 64
+wait 100
+expect voices 1
+expect peak >30
+midi 80 45 00
+until voices 0 3000
+# a note on with velocity 0 is a note off
+midi 90 45 64
+wait 50
+midi 90 45 00
+until voices 0 3000
+# a program change: the font's preset (font 0, program 5: "Sine +12")
+midi C0 05 00
+wait 10
+expect preset 5
+expect font 0
+expect prog 5
+# bank select 1, then a program change: the second font's (program 48: its strings)
+midi B0 00 01
+midi C0 30 00
+wait 10
+expect font 1
+expect prog 48
+expect preset 16
+# a program the font does not have: the font's first
+midi C0 7E 00
+wait 10
+expect font 1
+expect prog 0
+# bank select alone changes nothing until the program change
+midi B0 00 00
+wait 10
+expect font 1
+midi C0 02 00
+wait 10
+expect font 0
+expect prog 2
+# a font that is not there: the last one
+midi B0 00 09
+midi C0 00 00
+wait 10
+expect font 1
+# channel 10 is the drum part: the kit of the font asked for
+midi B9 00 01
+midi C9 00 00
+turn ALGO 9
+expect drums 1
+expect bank 128
+expect font 1
+expect preset 25
+midi B9 00 00
+midi C9 00 00
+wait 10
+expect preset 6
+turn ALGO -9
+# the controllers: volume, pan, reverb, chorus, cutoff
+midi B0 07 50
+midi B0 0A 20
+midi B0 5B 10
+midi B0 5D 30
+midi B0 4A 28
+wait 10
+expect vol 80
+expect pan 32
+expect rev 16
+expect cho 48
+expect cutoff 40
+# the sustain pedal: the note stays after its note off, until the pedal comes up
+midi C0 00 00
+midi B0 40 7F
+midi 90 45 64
+wait 50
+midi 80 45 00
+wait 1000
+expect voices 1
+midi B0 40 00
+until voices 0 3000
+# all notes off (CC 123) and all sound off (CC 120)
+midi 90 40 64
+midi 90 44 64
+wait 50
+expect voices 2
+midi B0 7B 00
+until voices 0 3000
+midi 90 40 64
+wait 50
+midi B0 78 00
+until voices 0 200
+# a drum kit's exclusive class: the closed hat cuts the open one
+midi 99 2E 64
+wait 10
+expect voices 1
+midi 99 2A 64
+wait 30
+expect voices 1
+# General MIDI's reset: the parts as they start
+midi B0 07 20
+midi C0 03 00
+wait 10
+expect vol 32
+sysex 7E 7F 09 01
+wait 10
+expect vol 100
+expect preset 0
+expect cutoff 64
+# GS's reset
+midi B0 07 20
+wait 10
+sysex 41 10 42 12 40 00 7F 00 41
+wait 10
+expect vol 100
+# a part not on: notes on another channel play part 2
+midi 91 45 64
+wait 50
+turn ALGO 1
+expect voices 1
+midi 81 45 00
+turn ALGO -1

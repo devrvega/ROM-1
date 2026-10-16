@@ -1,0 +1,87 @@
+name: Feature request
+description: Suggest something new for ROM-1, or a change to something it already does.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest something. ROM-1 runs on the FM-1's small processor, with about
+        740 KB for sounds and its fixed panel (27 keys, 14 buttons, 7 encoders, the MASTER knob, a 240 x 240
+        screen), so the more you can say about **what you want to do with it** and **how you'd play it on the
+        FM-1**, the easier it is to judge. Only the first three questions are needed; answer what you can.
+
+        Found something broken instead? Please open a separate issue describing the problem, rather than a
+        feature request.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of ROM-1 is this about?
+      options:
+        - The engine (voices, filter, envelopes, modulation)
+        - Effects (reverb, chorus)
+        - MIDI (messages, channels, resets)
+        - Fitting sounds in (quality, room, the converter)
+        - The "Your sounds" page
+        - Parts and presets on the panel
+        - Screen and lights
+        - Controls (buttons, keys, knobs, pages)
+        - Installer, emulator or manual
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like ROM-1 to do?
+      description: Describe the feature or change. A short example helps.
+      placeholder: "e.g. A delay as a third effect, with each part's send."
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would it help you?
+      description: What are you trying to make or play, and what gets in the way today?
+      placeholder: "e.g. I play ROM-1 from my sequencer and want..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: controls
+    attributes:
+      label: How would you play it on the FM-1?
+      description: Optional. Which buttons, keys or knobs would you use, and on which page? Or which MIDI message?
+    validations:
+      required: false
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: Is it like something on other gear?
+      description: Optional. If a sound module, a sampler or a software player does this, say which and how. Links to manuals or videos are welcome.
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: ROM-1 version
+      description: Optional. The version you have installed (the BANK page shows it), if you know it.
+      placeholder: "e.g. 0.1.0"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I looked through the existing issues for this idea.
+          required: false
+        - label: I understand that features needing more processing or memory than the FM-1 has may not be possible.
+          required: false

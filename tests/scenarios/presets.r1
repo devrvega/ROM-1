@@ -1,0 +1,42 @@
+# PRESETS: the part's preset within its font, round; GLO+PRESETS: the next font's first (a kit on the drum
+# part); the preset's name on the screen
+bank build/test/two/bank_a.bin build/test/two/bank_b.bin
+expect preset 0
+turn PRESET 1
+expect preset 1
+turn PRESET 2
+expect preset 3
+shot ping.png
+turn PRESET -4
+expect preset 6
+turn PRESET 1
+expect preset 0
+# the next font
+press GLO
+turn PRESET 1
+release GLO
+expect font 1
+expect preset 7
+shot piano.png
+turn PRESET -1
+expect preset 25
+turn PRESET 1
+expect preset 7
+press GLO
+turn PRESET 1
+release GLO
+expect font 0
+expect preset 0
+# the drum part: GLO+PRESETS goes to the next font's kit
+turn ALGO 9
+expect preset 6
+press GLO
+turn PRESET 1
+release GLO
+expect preset 25
+expect bank 128
+# a preset picked plays at once (the kick)
+peakreset
+midi 99 24 64
+wait 100
+expect peak >10

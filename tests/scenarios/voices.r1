@@ -1,0 +1,52 @@
+# Many notes: the voices stop at the cap (the device lowers it while renders run heavy; here it stays at
+# its first, 28), the newest notes sound, every voice free again after
+bank build/test/two/bank_a.bin build/test/two/bank_b.bin
+midi 90 24 64
+midi 90 26 64
+midi 90 28 64
+midi 90 29 64
+midi 90 2B 64
+midi 90 2D 64
+midi 90 2F 64
+midi 90 30 64
+midi 91 32 64
+midi 91 34 64
+midi 91 35 64
+midi 91 37 64
+midi 91 39 64
+midi 91 3B 64
+midi 91 3C 64
+midi 91 3E 64
+midi 92 40 64
+midi 92 41 64
+midi 92 43 64
+midi 92 45 64
+midi 92 47 64
+midi 92 48 64
+midi 92 4A 64
+midi 92 4C 64
+midi 93 4D 64
+midi 93 4F 64
+midi 93 51 64
+midi 93 53 64
+midi 93 54 64
+midi 93 56 64
+midi 93 58 64
+midi 93 59 64
+midi 94 5B 64
+midi 94 5D 64
+midi 94 5F 64
+midi 94 60 64
+wait 300
+expect notes 36
+expect voices 28
+peakreset
+wait 500
+expect peak >100
+shot full.png
+midi B0 7B 00
+midi B1 7B 00
+midi B2 7B 00
+midi B3 7B 00
+midi B4 7B 00
+until voices 0 4000

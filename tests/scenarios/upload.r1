@@ -1,0 +1,39 @@
+# Region B: the firmware's region A alone (the upload page's first step), then region B sent as the page
+# sends it; the sounds in region B silent until it is in, and kept after a restart
+bank build/test/two/bank_a.bin
+expect fonts 2
+expect b_ok 0
+# font 0 is wholly in region A: it plays
+peakreset
+midi 90 45 64
+wait 200
+expect peak >30
+midi 80 45 00
+until voices 0 3000
+# the starter's Choir is in region B: no note for now
+expect notes 1
+midi B0 00 01
+midi C0 34 00
+wait 10
+expect prog 52
+midi 90 3C 64
+wait 300
+expect notes 1
+midi 80 3C 00
+wait 300
+expect erases 0
+upload build/test/two/bank_b.bin
+expect b_ok 1
+expect erases >60
+peakreset
+midi 90 3C 64
+wait 300
+expect notes 2
+expect peak >10
+midi 80 3C 00
+until voices 0 4000
+reboot
+expect b_ok 1
+# the same region B again: written over; some pages sent twice (their answers lost on the way)
+upload build/test/two/bank_b.bin again
+expect b_ok 1

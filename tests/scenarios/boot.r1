@@ -1,0 +1,69 @@
+# ROM-1 boots with its starter sounds: the bank, the parts as they start, the keys, the octave, the kit on
+# part 10, the screen
+expect presets 19
+expect fonts 1
+expect b_ok 0
+expect sel 0
+expect page 0
+expect preset 0
+expect bank 0
+expect prog 0
+expect drums 0
+expect vol 100
+expect pan 64
+expect rev 40
+wait 300
+shot boot.png
+# a key: a note sounds, and goes some time after the key comes up
+peakreset
+key w0 down
+wait 300
+expect voices >0
+expect notes 1
+expect peak >30
+shot playing.png
+key w0 up
+until voices 0 4000
+# a chord, three keys
+key w0 down
+key w2 down
+key w4 down
+wait 100
+expect voices >2
+expect notes 4
+key w0 up
+key w2 up
+key w4 up
+until voices 0 4000
+# the octave: OCT- / OCT+, from -3 to +3
+tap OCT+
+expect oct 1
+tap OCT+
+tap OCT+
+tap OCT+
+expect oct 3
+tap OCT-
+tap OCT-
+tap OCT-
+tap OCT-
+expect oct -1
+tap OCT+
+expect oct 0
+# part 10 is the drum part: the kit
+turn ALGO 9
+expect sel 9
+expect drums 1
+expect bank 128
+expect preset 18
+shot drums.png
+peakreset
+midi 99 24 64
+wait 200
+expect peak >30
+turn ALGO -9
+expect sel 0
+# the last part, and no further
+turn ALGO 20
+expect sel 15
+turn ALGO -20
+expect sel 0

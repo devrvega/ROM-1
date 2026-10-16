@@ -1,0 +1,120 @@
+# The pages and their knobs, the part's buttons, the help cards and the SETUP page
+# PART: volume, pan, reverb, chorus (the part's)
+turn K1 -10
+expect vol 90
+turn K2 6
+expect pan 70
+turn K3 20
+expect rev 60
+turn K4 5
+expect cho 5
+expect dirty 1
+shot part.png
+# SELECT: the pages in turn, and round
+turn SELECT 1
+expect page 1
+turn K1 -30
+expect cutoff 34
+shot sound.png
+turn SELECT 1
+expect page 2
+turn K1 1
+shot effects.png
+turn SELECT 1
+expect page 3
+shot setup.png
+turn SELECT 1
+expect page 4
+shot bank.png
+turn SELECT 1
+expect page 0
+turn SELECT -1
+expect page 4
+# the buttons that pick pages
+tap HOME
+expect page 0
+tap ENV
+expect page 1
+tap LFO
+expect page 1
+tap FX
+expect page 2
+tap SEQ
+expect page 4
+# GLO held: SETUP
+hold GLO 900
+expect page 3
+# SETUP: the keys' velocity, transpose
+turn K1 -20
+expect kvel 80
+peakreset
+tapkey w0
+wait 20
+expect notes 1
+tap HOME
+# SEL: the part muted, again unmuted
+tap SEL
+expect mute 1
+tap SEL
+expect mute 0
+# GLO+SEL: solo (the others muted), again all back
+press GLO
+tap SEL
+release GLO
+expect mute 0
+expect page 0
+turn ALGO 1
+expect mute 1
+turn ALGO -1
+press GLO
+tap SEL
+release GLO
+turn ALGO 1
+expect mute 0
+turn ALGO -1
+# EDIT: the part's knobs back
+expect vol 90
+tap EDIT
+wait 20
+expect vol 100
+expect pan 64
+expect rev 40
+expect cho 0
+expect cutoff 64
+# GLO+EDIT: everything back (a GM reset)
+turn K1 -50
+expect vol 50
+press GLO
+tap EDIT
+release GLO
+wait 20
+expect vol 100
+# a button held long: its help card, and it does nothing else
+hold FX 1200
+expect page 0
+shot help.png
+wait 100
+# REC: all notes off
+key w0 down
+key w4 down
+wait 100
+expect voices >1
+tap REC
+key w0 up
+key w4 up
+until voices 0 500
+# ARP: hold (the sustain pedal) on the part
+tap ARP
+key w0 down
+wait 50
+key w0 up
+wait 1500
+expect voices >0
+tap ARP
+until voices 0 4000
+# PLAY: a phrase on the part, again: stop
+tap PLAY
+wait 1000
+expect notes >10
+tap PLAY
+until voices 0 4000

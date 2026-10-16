@@ -1,0 +1,92 @@
+name: Bug report
+description: Something in ROM-1 doesn't work the way the manual says, sounds wrong, crashes or loses your settings.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting it. Only the first three questions are needed; anything else you can add (photos or
+        a short video of the screen, a recording, the crash screen's address) makes it much quicker to find.
+
+  - type: input
+    id: version
+    attributes:
+      label: ROM-1 version
+      description: At the bottom right of the BANK page (SEQ button), or on the start screen ("v0.1.0").
+      placeholder: "e.g. 0.1.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you saw or heard, and what you expected instead.
+      placeholder: "e.g. With my GBA font on part 3, a held note clicks every second..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can it be made to happen again?
+      description: The steps from switching on, as far as you know them. "It happens sometimes" is useful too.
+      placeholder: |
+        1. Part 3 (ALGORITHM), preset "Strings" of the second font
+        2. Hold a chord of five notes with the sustain pedal
+        3. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Optional. Which part of ROM-1 is it in?
+      options:
+        - The sound (a preset sounds wrong, clicks, out of tune)
+        - Effects (reverb, chorus)
+        - MIDI in (notes, controllers, bank select, program change, resets)
+        - Many notes at once (voices, load)
+        - The "Your sounds" page (converting, fitting, putting them on the FM-1)
+        - Settings (saving, coming back after a restart)
+        - Screen and lights
+        - Controls (buttons, keys, knobs, pages)
+        - Installing, the emulator or the manual
+        - Something else
+    validations:
+      required: false
+
+  - type: textarea
+    id: font
+    attributes:
+      label: The sounds
+      description: Optional. If it's about a sound: which .sf2 file (a link if it's public) and which preset, and what the "Your sounds" page said about its quality.
+    validations:
+      required: false
+
+  - type: textarea
+    id: crash
+    attributes:
+      label: Crash screen
+      description: Optional. If a red CRASH screen appeared, or RESTARTED AFTER A CRASH, the address it showed (PC ...).
+      placeholder: "e.g. PC 0201A4C0"
+    validations:
+      required: false
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Your setup
+      description: Optional. How you installed ROM-1 (web installer, "Your sounds", command line, built it yourself), what plays it over MIDI, and the computer and browser if it's about installing or the emulator.
+    validations:
+      required: false
+
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Optional. Photos or a video of the screen, a recording, links. Drag files into this box.
+    validations:
+      required: false
