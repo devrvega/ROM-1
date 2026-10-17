@@ -3,6 +3,7 @@
  * held then let go, and a chord; every output sample finite and in range, every voice free again after,
  * the time a render takes. With a third argument, the whole thing as a WAV to listen to.
  *   rom1_test BANK_A BANK_B [OUT.wav] */
+#define _POSIX_C_SOURCE 200809L                /* (clock_gettime under -std=c99) */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

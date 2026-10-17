@@ -463,12 +463,12 @@ void r1_midi(uint32_t st, uint32_t d1, uint32_t d2)
     d1 &= 127u;
     d2 &= 127u;
     switch (st & 0xF0u) {
-    case 0x90:
+    case 0x90:                                        /* (velocity 0: a note off) */
         if (d2) {
             note_on(part, (int)d1, (int)d2);
             break;
         }
-        /* fall through: velocity 0 is a note off */
+        /* fall through */
     case 0x80: note_off(part, (int)d1); break;
     case 0xB0: cc(part, (int)d1, (int)d2); break;
     case 0xC0: program(part, (int)d1); break;

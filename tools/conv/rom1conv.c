@@ -178,5 +178,8 @@ int main(int argc, char **argv)
         printf("bank: region A %u B of %u, region B %u B of %u\n%s\n", (unsigned)la, (unsigned)cap_a, (unsigned)lb,
                (unsigned)cap_b, cv_report());
     }
+    for (i = 0; i < nfiles; i++)                      /* (all given back: the sanitizers' leak check) */
+        free(files[i]);
+    cv_reset();
     return 0;
 }
