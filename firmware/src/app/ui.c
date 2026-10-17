@@ -563,7 +563,7 @@ static void leds(void)
         k = ui.keys;
     if (set.lights == 2)
         b = 0;
-    plat_glow(set.glow);
+    plat_glow(set.glow && set.lights == 1);       /* Off and Keys: the unlit buttons dark too */
     plat_play_red(0);
     plat_leds(set.lights ? b : 0, k);
 }

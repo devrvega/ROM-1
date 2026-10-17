@@ -51,6 +51,32 @@ peakreset
 tapkey w0
 wait 20
 expect notes 1
+# SETUP: the lights. On: the buttons (the others glowing) and the keys held; Off: nothing; Keys: the keys
+# held only
+expect lights 1
+key w0 down
+wait 50
+expect lit_keys 1
+expect lit_btn >0
+expect glow 1
+turn K4 -1
+wait 50
+expect lights 0
+expect lit_keys 0
+expect lit_btn 0
+expect glow 0
+turn K4 2
+wait 50
+expect lights 2
+expect lit_keys 1
+expect lit_btn 0
+expect glow 0
+key w0 up
+wait 50
+expect lit_keys 0
+turn K4 -1
+wait 50
+expect lights 1
 tap HOME
 # SEL: the part muted, again unmuted
 tap SEL

@@ -123,7 +123,8 @@ them. The fonts are numbered in the order you gave them, from 0 (the BANK page l
   0 is the preset as it was made.
 - **EFFECTS** is everyone's: one reverb and one chorus, which each part sends to.
 - **SETUP** is the keys': how hard they play, whether they also go out over USB (to play something else from
-  the FM-1), and the lights.
+  the FM-1), and the lights: **Off** all dark, **On** the buttons (the ones not lit glowing faintly) and the
+  keys you hold, **Keys** only the keys you hold.
 - **BANK** says what is loaded: the fonts, the presets, how much is in the firmware and how much in the data
   area (and MISSING if the data area's part is not there), the bank's name and ROM-1's version.
 

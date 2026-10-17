@@ -22,10 +22,11 @@
  *   wav FILE | wavstop           start / stop recording the output
  *   peakreset                    the output's peak counted again
  *   shot FILE.png                save the screen
- *   leds                         print the lit buttons and keys
+ *   leds                         print the lit buttons and keys, and whether the others glow
  *   expect WHAT VALUE            check state: exit 1 on mismatch; VALUE "<N" / ">N" is a bound
  *     WHAT: sel page oct kvel voices notes preset font bank prog vol pan rev cho cutoff mute drums dirty
  *           presets fonts b_ok bank_id peak (x1000) store_writes erases
+ *           lights lit_btn lit_keys (how many lit) glow
  *   until WHAT VALUE [MS]        run until the expectation holds (at most MS, default 20000), then check
  *   reboot                       re-run boot from the simulated flash (persistence test)
  *   echo TEXT
@@ -71,7 +72,7 @@ static void lcd_blit(uint32_t x, uint32_t y, uint32_t w, uint32_t h, const uint1
 
 static uint32_t now_ms, held_btn, held_keys, master = 2800;
 static int32_t enc_acc[NE];
-static uint32_t lit_btn, lit_keys;
+static uint32_t lit_btn, lit_keys, lit_glow;
 
 uint32_t plat_ms(void) { return now_ms; }
 uint32_t plat_buttons(void) { return held_btn; }
@@ -88,7 +89,7 @@ void plat_leds(uint32_t b, uint32_t k)
     lit_btn = b;
     lit_keys = k;
 }
-void plat_glow(int on) { (void)on; }
+void plat_glow(int on) { lit_glow = on != 0; }
 void plat_play_red(int red) { (void)red; }
 void r1_lock(int on) { (void)on; }
 
@@ -460,6 +461,10 @@ static int expect(const char *what, const char *val)
     else if (IS("store_writes")) got = (int)store_writes;
     else if (IS("erases")) got = (int)nor_erases;
     else if (IS("midi_out")) got = (int)midi_out_count;
+    else if (IS("lights")) got = set.lights;
+    else if (IS("lit_btn")) got = __builtin_popcount(lit_btn);
+    else if (IS("lit_keys")) got = __builtin_popcount(lit_keys);
+    else if (IS("glow")) got = (int)lit_glow;
     else {
         printf("FAIL unknown expect %s\n", what);
         return 1;
@@ -602,7 +607,11 @@ static int script_line(const char *line, const char *dir, int lineno, int *fails
         for (i = 0; i < NB; i++)
             if (lit_btn >> i & 1u)
                 printf(" %s", BTN_N[i]);
-        printf("\n");
+        printf(", keys");
+        for (i = 0; i < NKEYS; i++)
+            if (lit_keys >> i & 1u)
+                printf(" %d", i);
+        printf(lit_glow ? ", the others glow\n" : "\n");
     } else if (!strcmp(cmd, "expect"))
         *fails += expect(a, b);
     else if (!strcmp(cmd, "until")) {

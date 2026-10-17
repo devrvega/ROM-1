@@ -2,6 +2,12 @@
 
 Each release's notes come from its section here (`tools/release_notes.py`). The newest is first.
 
+## 0.1.1 — unreleased
+
+- **SETUP's LIGHTS works:** Off and Keys left every button glowing dimly, so the three choices looked alike on
+  the FM-1. Now Off is dark, Keys lights only the keys you hold, and On lights the buttons (the others
+  glowing) and the keys.
+
 ## 0.1.0 — 2026-10-17
 
 The first release.
