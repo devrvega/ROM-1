@@ -2,7 +2,7 @@
 
 Each release's notes come from its section here (`tools/release_notes.py`). The newest is first.
 
-## 0.1.0 — 2026-10-16
+## 0.1.0 — 2026-10-17
 
 The first release.
 
