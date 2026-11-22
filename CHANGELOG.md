@@ -2,6 +2,12 @@
 
 Each release's notes come from its section here (`tools/release_notes.py`). The newest is first.
 
+## 1.0.0 — 2026-11-22
+
+- **Production ready:** 1.0 is the first release of ROM-1 marked as ready for everyday use. There are no firmware
+  changes since 0.1.1.
+- **Documentation:** the manual covers version 1.0, and the version numbers in the build instructions.
+
 ## 0.1.1 — 2026-10-17
 
 - **SETUP's LIGHTS works:** Off and Keys left every button glowing dimly, so the three choices looked alike on

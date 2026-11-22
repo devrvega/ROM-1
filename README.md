@@ -10,6 +10,9 @@ chorus. It plays .sf2 files: choose them in the browser, and they are converted 
 best quality that fits, then put on it over USB. The keys play the part on the screen; MIDI over USB or the TRS
 jack plays all sixteen at once. It comes with starter sounds of its own: a General MIDI handful and a drum kit.
 
+**Version 1.0** is the first release marked production ready. What changed in each release is in the
+[changelog](CHANGELOG.md).
+
 ![ROM-1 on the FM-1's screen: the sixteen parts' levels, the preset's name in big dots, the part's knobs](docs/img/rom1.gif)
 
 | | |

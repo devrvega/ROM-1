@@ -52,7 +52,7 @@ the screen's dot-matrix face), the converter (`build/gen/rom1conv`), the starter
 the code leaves. Region A goes in at the first 4 KiB boundary after the code, to the end of the app's slot;
 the build says how much room that is.
 
-- `./build.sh --release 0.1.0` makes a release build; the package is `build/rom1-0.1.0.fwsc`.
+- `./build.sh --release 1.0.0` makes a release build; the package is `build/rom1-1.0.0.fwsc`.
 - `./build.sh --bank DIR/bank_a.bin` builds another bank's region A in (`rom1conv`'s); its region B then goes
   over USB (`tools/rom1_load.py --region-b DIR/bank_b.bin`). `tools/rom1pkg.py patch` does the same to a
   package already built, byte for byte.

@@ -1,7 +1,7 @@
 # ROM-1 manual
 
 ROM-1 is firmware for the M-VAVE FM-1 that makes it a sixteen-part sound module playing .sf2 files. This manual
-covers version 0.1.
+covers version 1.0.
 
 1. [What it is](#1-what-it-is)
 2. [Getting started](#2-getting-started)
@@ -192,7 +192,7 @@ fit.
 
 ```
 pip3 install mido python-rtmidi
-python3 tools/rom1_load.py --package rom1-0.1.0.fwsc --name "My sounds" A.sf2 B.sf2@0:0,0:48,128:0
+python3 tools/rom1_load.py --package rom1-1.0.0.fwsc --name "My sounds" A.sf2 B.sf2@0:0,0:48,128:0
 ```
 
 `FONT.sf2@BANK:PROG,...` takes only those presets (bank 128: kits). It converts, installs and writes the data
